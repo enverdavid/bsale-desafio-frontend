@@ -3,8 +3,16 @@ const search = document.querySelector('#search');
 const button_submit = document.querySelector('#button_submit');
 const productsContent = document.querySelector('#products_contend');
 
+const baseURL = 'https://bsale-my-backend.herokuapp.com/api/v1';
+
+const getCategories = async () => {
+  const res = await fetch(`${baseURL}/categories`);
+  const data = await res.json();
+  return data
+};
+
 const getProducts = async (params = {}) => {
-  const url = new URL('http://localhost:3001/api/v1/products');
+  const url = new URL(`${baseURL}/products`);
   Object.keys(params).forEach((key) => {
     url.searchParams.append(key, params[key]);
   });
@@ -15,7 +23,7 @@ const getProducts = async (params = {}) => {
   return data;
 };
 
-const render = (products) => {
+const renderProducts = (products) => {
   // Pintar la vista
   productsContent.textContent = '';
 
@@ -39,18 +47,31 @@ const render = (products) => {
   });
 }
 
+const renderCategories = async () => {
+  const data = await getCategories();
+  const categories = data.rows;
+
+  categories.forEach((c) => {
+    const option = document.createElement('option');
+    option.value = c.id;
+    option.textContent = c.name;
+
+    selector.appendChild(option)
+  })
+}
+
 const productosBySearch = async (searchWord) => {
   // Obtenemos la data
  const productos = await getProducts({search: searchWord});
 
  // Pintamos la data
- render(productos);
+ renderProducts(productos);
 }
 
 const productsByCategory = async (id) => {
   // Obtenemos los productos según categoria
   const products = await getProducts({ category: id });
-  render(products)
+  renderProducts(products)
 };
 
 button_submit.addEventListener('click', (evn) => {
@@ -63,3 +84,5 @@ selector.addEventListener('change', () => {
   const value = selector.options[selector.selectedIndex].value;
   productsByCategory(value);
 });
+
+renderCategories()

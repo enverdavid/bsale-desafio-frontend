@@ -9,18 +9,23 @@
 </head>
 <body>
   <h1>My Ecommerce</h1>
-  <form action="">
-    <input type="text" id="search">
-    <label for="search">buscar</label>
+  <form class="form">
+    <input type="text" id="search" required>
+    <label for="search" class="lbl-nombre">
+      <span class="text-nomb">
+        Nombre
+      </span>
+    </label>
     <button id="button_submit" type="submit">Enviar</button>
   </form>
 
+  <!-- borrar el br de abajo  -->
+  <br>
+
   <div>
     <select id="selector" class="form-select" aria-label="Default select example">
-      <option selected>Open this select menu</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+      <!-- <option selected>Open this select menu</option>
+      <option value="1">One</option> -->
     </select>
   </div>
 
