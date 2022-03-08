@@ -30,15 +30,17 @@ const renderProducts = (products) => {
   products.rows.forEach((item) => {
     const cardContent = document.createElement('div');
     const image = document.createElement('img');
-    const productTitle = document.createElement('h3');
+    const productTitle = document.createElement('h6');
     const productPrice = document.createElement('p');
 
-    cardContent.classList.add('card')
-    image.classList.add('product_image')
+    cardContent.classList.add('card');
+    image.classList.add('product-image');
+    productTitle.classList.add('product-title');
+    productPrice.classList.add('product-price');
 
     image.src = item.url_image;
     productTitle.textContent = item.name;
-    productPrice.textContent = item.price;
+    productPrice.textContent = `$${item.price}`;
 
     cardContent.appendChild(image);
     cardContent.appendChild(productTitle);
